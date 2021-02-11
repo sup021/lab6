@@ -1,7 +1,7 @@
 'use strict';
 
 // Call this function when the page loads (the "ready" event)
-$(document).ready(function() {
+$(document).ready(function () {
 	initializePage();
 })
 
@@ -27,4 +27,12 @@ function addProjectDetails(e) {
 	var idNumber = projectID.substr('project'.length);
 
 	console.log("User clicked on project " + idNumber);
+
+	var url = $.get("http://localhost:3000/project/" + idNumber, callBackFn);
+	console.log("http://localhost:3000/project/" + idNumber);
+}
+
+function callBackFn(result) {
+	var projectHTML = '<p><small>' + result['date'] + '</small></p>' + '<img src="' + result['image'] + '" class="detailsImage">' + '<p>' + result['summary'] + '</p>';
+	$("#project" + result.id + " .details").html(projectHTML);
 }
